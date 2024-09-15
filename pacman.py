@@ -1,6 +1,7 @@
 import pygame
 import random
 from collections import deque
+from time import sleep
 
 # Ініціалізація Pygame
 pygame.init()
@@ -20,7 +21,7 @@ BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 
 # Розмір комірок
-cell_size = 20
+cell_size = 30
 rows = screen_height // cell_size
 cols = screen_width // cell_size
 
@@ -29,7 +30,48 @@ class Maze:
     def __init__(self):
         self.grid = [[1 for _ in range(cols)] for _ in range(rows)]
         self.food = []
-        self.generate_maze()
+        #self.generate_maze()
+        # self.grid = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        #              [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+        #self.generate_maze()
+        self.grid =   [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                       [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                       [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                       [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                       [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                       [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                       [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                       [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                       [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                       [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                       [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
         self.place_food()
 
     # Алгоритм пошуку в глибину для генерації деревоподібного лабіринту
@@ -63,7 +105,8 @@ class Maze:
             for j in range(cols):
                 if self.grid[i][j] == 0:
                     self.food.append((i, j))
-
+    def get_empty_cells(self):
+        return [(i, j) for i in range(rows) for j in range(cols) if self.grid[i][j] == 0]
     def draw(self, screen):
         for i in range(rows):
             for j in range(cols):
@@ -128,6 +171,7 @@ class Ghost:
         self.path = []
 
     def move(self, maze, pacman):
+        #sleep(200)
         if not self.path:
             self.path = bfs(maze, (self.x, self.y), (pacman.x, pacman.y))
         if self.path:
@@ -145,7 +189,10 @@ def check_collision(pacman, ghost):
 level = 1
 maze = Maze()
 pacman = Pacman(1, 1)
-ghosts = [Ghost(random.randint(0, cols-1), random.randint(0, rows-1), RED)]
+ghosts = []
+empty_cells = maze.get_empty_cells()
+x, y = random.choice(empty_cells)
+ghosts.append(Ghost(x, y, RED))
 font = pygame.font.SysFont(None, 36)
 game_over = False
 
@@ -170,7 +217,10 @@ while running:
                 level = 1
                 maze = Maze()
                 pacman = Pacman(1, 1)
-                ghosts = [Ghost(random.randint(0, cols-1), random.randint(0, rows-1), RED)]
+                ghosts = []
+                empty_cells = maze.get_empty_cells()
+                x, y = random.choice(empty_cells)
+                ghosts.append(Ghost(x, y, RED))
                 game_over = False
         else:
             if event.type == pygame.KEYDOWN:
@@ -185,10 +235,21 @@ while running:
 
     if not game_over:
         # Оновлення положення Пакмена і привидів
+        for ghost in ghosts:
+            if check_collision(pacman, ghost):
+                game_over = True
         pacman.move(maze)
+        for ghost in ghosts:
+            if check_collision(pacman, ghost):
+                game_over = True
         pacman.eat_food(maze)
         for ghost in ghosts:
+            if check_collision(pacman, ghost):
+                game_over = True
+        for ghost in ghosts:
             ghost.move(maze, pacman)
+            if check_collision(pacman, ghost):
+                game_over = True
 
         # Перевірка на програш (зіткнення з привидом)
         for ghost in ghosts:
@@ -200,7 +261,11 @@ while running:
             level += 1
             maze = Maze()
             pacman = Pacman(1, 1)
-            ghosts = [Ghost(random.randint(0, cols-1), random.randint(0, rows-1), RED)]
+            empty_cells = maze.get_empty_cells()
+            for _ in range(level):  # Збільшуємо кількість привидів з кожним рівнем
+                if empty_cells:
+                    x, y = random.choice(empty_cells)
+                    ghosts.append(Ghost(x, y, RED))
 
     # Малювання
     screen.fill(BLACK)
@@ -217,6 +282,6 @@ while running:
         draw_text("Game Over! Press R to restart", screen_width // 4, screen_height // 2, screen)
 
     pygame.display.flip()
-    clock.tick(10)
+    clock.tick(8)
 
 pygame.quit()
