@@ -152,7 +152,6 @@ class Ghost:
         self.path = []
 
     def move(self, maze, pacman):
-        #sleep(200)
         if not self.path:
             self.path = bfs(maze, (self.x, self.y), (pacman.x, pacman.y))
         if self.path:
@@ -171,6 +170,8 @@ maze = Maze()
 pacman = Pacman(1, 1)
 ghosts = []
 empty_cells = maze.get_empty_cells()
+x, y = random.choice(empty_cells)
+ghosts.append(Ghost(x, y, RED))
 x, y = random.choice(empty_cells)
 ghosts.append(Ghost(x, y, RED))
 font = pygame.font.SysFont(None, 36)
