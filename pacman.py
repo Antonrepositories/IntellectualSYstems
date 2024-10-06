@@ -17,45 +17,36 @@ RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 GREEN = (0, 255, 0)
 
-cell_size = 20
+cell_size = 30
 rows = screen_height // cell_size
 cols = screen_width // cell_size
 
 class Maze:
     def __init__(self):
         self.grid = [[1 for _ in range(cols)] for _ in range(rows)]
-        self.generate_maze()
+        #self.generate_maze()
         self.food = []
-        # self.grid = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        #              [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        #              [1, 0, 1, 1, 0, 0, 1, 1, 0, 1],
-        #              [1, 0, 1, 0, 0, 0, 0, 1, 0, 1],
-        #              [1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
-        #              [1, 0, 0, 0, 1, 1, 0, 0, 0, 1],
-        #              [1, 0, 1, 0, 0, 0, 0, 1, 0, 1],
-        #              [1, 0, 1, 1, 0, 0, 1, 1, 0, 1],
-        #              [1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        #              [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
-        # self.grid =   [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        #                [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        #                [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-        #                [1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1],
-        #                [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-        #                [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-        #                [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-        #                [1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        #                [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-        #                [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        #                [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-        #                [1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        #                [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-        #                [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        #                [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-        #                [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-        #                [1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1],
-        #                [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
-        #                [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-        #                [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+
+        self.grid =   [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                        [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                        [1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1],
+                        [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                        [1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                        [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                        [1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                        [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                        [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                        [1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                        [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                        [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                        [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                        [1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1],
+                        [1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1],
+                        [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+                        [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]]
         self.place_food()
     
     def generate_maze(self):
@@ -120,6 +111,7 @@ class Pacman:
     def draw(self, screen):
         pygame.draw.circle(screen, YELLOW, (self.x * cell_size + cell_size // 2, self.y * cell_size + cell_size // 2), cell_size // 2)
 
+
 # BFS Алгоритм для пошуку шляху привидів
 def bfs(maze, start, goal):
     queue = deque([start])
@@ -134,8 +126,11 @@ def bfs(maze, start, goal):
                 path.append(current)
                 current = came_from[current]
             return path[::-1]
+        
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        random.shuffle(directions)
 
-        for dx, dy in [(0, 1), (1, 0), (0, -1), (-1, 0)]:
+        for dx, dy in directions:
             neighbor = (current[0] + dx, current[1] + dy)
             if 0 <= neighbor[0] < rows and 0 <= neighbor[1] < cols and maze.grid[neighbor[1]][neighbor[0]] == 0:
                 if neighbor not in came_from:
@@ -172,8 +167,10 @@ ghosts = []
 empty_cells = maze.get_empty_cells()
 x, y = random.choice(empty_cells)
 ghosts.append(Ghost(x, y, RED))
-x, y = random.choice(empty_cells)
-ghosts.append(Ghost(x, y, RED))
+q, z = random.choice(empty_cells)
+if q == x and z == y:
+    q, z = random.choice(empty_cells)
+ghosts.append(Ghost(q, z, RED))
 font = pygame.font.SysFont(None, 36)
 game_over = False
 
@@ -200,6 +197,11 @@ while running:
                 empty_cells = maze.get_empty_cells()
                 x, y = random.choice(empty_cells)
                 ghosts.append(Ghost(x, y, RED))
+                #empty_cells = maze.get_empty_cells()
+                q, z = random.choice(empty_cells)
+                if q == x and z == y:
+                    q, z = random.choice(empty_cells)
+                ghosts.append(Ghost(q, z, RED))
                 game_over = False
         else:
             if event.type == pygame.KEYDOWN:
@@ -237,7 +239,7 @@ while running:
             maze = Maze()
             pacman = Pacman(1, 1)
             empty_cells = maze.get_empty_cells()
-            for _ in range(level - 1):
+            for _ in range(level):
                 if empty_cells:
                     x, y = random.choice(empty_cells)
                     ghosts.append(Ghost(x, y, RED))
