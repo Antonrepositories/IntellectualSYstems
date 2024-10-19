@@ -1,49 +1,46 @@
 % Родова-видові зв'язки (is_a)
-is_a(cat, mammal).
-is_a(dog, mammal).
-is_a(elephant, mammal).
-is_a(mammal, animal).
-is_a(bird, animal).
-is_a(eagle, bird).
-is_a(sparrow, bird).
-is_a(fish, animal).
-is_a(shark, fish).
-is_a(salmon, fish).
-is_a(reptile, animal).
+is_a(vertebrate, animal).
+is_a(invertebrate, animal).
+
+is_a(mammal, vertebrate).
+is_a(reptile, vertebrate).
+
+is_a(spider, invertebrate).
+is_a(insect, invertebrate).
+
+
+
+is_a(dog, mammal)
+is_a(antilopa, mammal).
+
+is_a(turtle, reptile).
 is_a(snake, reptile).
-is_a(crocodile, reptile).
+
+
+is_a(scorpion, spider).
+is_a(black_widow, spider).
+
+is_a(bee, insect).
+is_a(ant, insect).
+
 
 is_a(X, Z) :- is_a(X, Y), is_a(Y, Z).
 
 % Зв'язки частина-ціле
-part_of(wing, eagle).
-part_of(beak, eagle).
-part_of(wing, sparrow).
-part_of(beak, sparrow).
-
-part_of(tail, cat).
-part_of(paw, cat).
-part_of(tail, dog).
 part_of(paw, dog).
+part_of(horn, antilopa).
+part_of(hoof, antilopa).
 
-part_of(fin, shark).
-part_of(gill, shark).
-part_of(fin, salmon).
-part_of(gill, salmon).
-
-part_of(trunk, elephant).
-part_of(tusk, elephant).
-
+part_of(shell, turtle).
 part_of(poison, snake).
-part_of(tail, crocodile).
+
+part_of(poisonous_tail, scorpion).
+part_of(web, black_widow).
+
+part_of(geniculate_tendrils, ant).
+part_of(wings, bee).
+part_of(sting, bee).
+
 
 part_of(X, Z) :- part_of(X, Y), is_a(Y, Z).
 
-% Якщо X є ссавцем, то у нього є шерсть
-has_fur(X) :- is_a(X, mammal).
-
-% Якщо X є птахом, то у нього є пір'я
-has_feathers(X) :- is_a(X, bird).
-
-% Якщо X є рептилією, то у нього є луска
-has_scales(X) :- is_a(X, reptile).
